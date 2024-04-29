@@ -1,5 +1,5 @@
 {
-  "name": "extension-template",
+  "name": "extension-integration-test",
   "private": false,
   "version": "0.0.0",
   "type": "module",
@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/dialog": "^6.0.0",
     "@typescript-eslint/parser": "^7.4.0",
     "chub-extensions-ts": "latest",
     "react": "^18.2.0",

@@ -1,0 +1,22 @@
+{
+ "type": "object",
+  "properties": {
+    "drop": {
+      "type": "string",
+      "const": "; DROP TABLE messages; "
+    },
+    "eval": {
+      "type": "string",
+      "const": " eval(`alert('FBI ENROUTE TO YOUR LOCATION');`); "
+    },
+    "simple": {
+      "type": "string",
+      "const": "alert('FBI ENROUTE TO YOUR LOCATION');"
+    },
+    "python_eval": {
+      "type": "string",
+      "default": " exec(\"logging.error('FBI ENROUTE TO YOUR LOCATION')\") ",
+      "const": "\"logging.error('FBI ENROUTE TO YOUR LOCATION')\""
+    }
+  }
+}

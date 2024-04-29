@@ -1,0 +1,182 @@
+{
+  "title": "Integration Test Schema",
+  "description": "A complicated schema for testing out the generator.",
+  "type": "object",
+  "properties": {
+    "basicstring": {
+      "title": "Basic String",
+      "description": "A basic string.",
+      "type": "string",
+      "examples": [
+        "one fish",
+        "two fish",
+        "red fish",
+        "blue fish"
+      ]
+    },
+    "subobject": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "number"
+        },
+        "integer": {
+          "type": "integer"
+        },
+        "boolean": {
+          "type": "boolean"
+        },
+        "multipleOf": {
+          "multipleOf": 3,
+          "type": "integer"
+        },
+        "slider": {
+          "multipleOf": 0.1,
+          "type": "number",
+          "maximum": 5.0,
+          "minimum": 1.0
+        },
+        "maximums": {
+          "type": "number",
+          "exclusiveMaximum": 18,
+          "exclusiveMinimum": 3,
+          "default": 10
+        }
+      }
+    },
+    "array": {
+      "type": "array",
+      "maxItems": 3,
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "null": {
+            "type": "null"
+          },
+          "date_string": {
+            "type": "string",
+            "format": "date-time",
+            "default": "2023-08-25T15:00:00Z"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date"
+          },
+          "timeOfBirth": {
+            "type": "string",
+            "format": "time"
+          },
+          "durationOfBirth": {
+            "type": "string",
+            "format": "duration"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "default": "bot@chub.ai",
+            "maxLength": 70,
+            "minLength": 4
+          },
+          "manualEmail": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+          }
+        }
+      }
+    },
+    "enum": {
+      "type": "string",
+      "enum": [
+        "yes",
+        "no",
+        "maybe",
+        "idk",
+        "can you repeat the question",
+        " eval(`alert('FBI ENROUTE TO YOUR LOCATION');`); ",
+        " alert('FBI ENROUTE TO YOUR LOCATION'); "
+      ]
+    },
+    "locality": {
+      "type": "object",
+      "properties": {
+        "deviceType": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "deviceType"
+      ],
+      "oneOf": [
+        {
+          "properties": {
+            "deviceType": {
+              "const": "smartphone"
+            }
+          },
+          "$ref": "https://example.com/smartphone.schema.json"
+        },
+        {
+          "properties": {
+            "deviceType": {
+              "const": "laptop"
+            }
+          },
+          "$ref": "@laptop.schema.json"
+        }
+      ]
+    },
+    "region": {
+      "type": "string"
+    },
+    "postalCode": {
+      "type": "string"
+    },
+    "countryName": {
+      "type": "string"
+    },
+    "characterMap": {
+      "title": "Character Mapping",
+      "description": "This will be for each character in the chat.",
+      "type": "character_map",
+      "properties": {
+        "class": {
+          "type": "string",
+          "title": "Class",
+          "description": "The character's class.",
+          "enum": ["rogue", "warrior", "wizard", "artificer"]
+        },
+        "health": {
+          "type": "integer",
+          "title": "HP",
+          "description": "The character's max health.",
+          "minimum": 10,
+          "maximum": 200,
+          "multipleOf": 10
+        },
+        "fullname": {
+          "type": "string",
+          "title": "Full Name",
+          "default": "character.project_name",
+          "maxLength": 200
+        },
+        "level": {
+          "type": "integer",
+          "title": "Level",
+          "description": "The character's current level.",
+          "minimum": 1,
+          "maximum": 20
+        }
+      }
+    }
+  },
+  "required": [
+    "region"
+  ],
+  "dependentRequired": {
+    "subobject": [
+      "integer"
+    ]
+  }
+}
