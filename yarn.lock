@@ -209,10 +209,17 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
-"@capacitor/dialog@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@capacitor/dialog/-/dialog-6.0.0.tgz#749689a3800560002a0fda1be0004b538e709f66"
-  integrity sha512-TnkfngkfB+t9m6wM/NDCyOjencSHHFBB1rqTDgrcAyoyP+Fjmykg6iRD5W7j9v52vNY2BESPmp692uWNbh88zA==
+"@capacitor/core@5.7.4":
+  version "5.7.4"
+  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-5.7.4.tgz#df894775972413982c03fad1ab9e39da38671549"
+  integrity sha512-iZBgvx3o4amzKv5ttA+QHB6i7cxK+/mYpCQd1tnSdipg6ZkvfBhg1HkzhEqHk+I7MNur+QwgYDZho9+ycHRwOw==
+  dependencies:
+    tslib "^2.1.0"
+
+"@capacitor/dialog@5.0.7":
+  version "5.0.7"
+  resolved "https://registry.yarnpkg.com/@capacitor/dialog/-/dialog-5.0.7.tgz#c14bb08d1d50cec1b132a96e74dfd8c3ac3a1dee"
+  integrity sha512-lWNBHXOtt7V+Jk4YiShvnb+/4Ouo+yF1NKTOFpQXfVbsjrmmlXhd3ZSXSgMukEtyr0wr0phFUKDyamY08cYBOg==
 
 "@esbuild/aix-ppc64@0.20.2":
   version "0.20.2"
@@ -1659,6 +1666,11 @@ ts-api-utils@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/ts-api-utils/-/ts-api-utils-1.3.0.tgz#4b490e27129f1e8e686b45cc4ab63714dc60eea1"
   integrity sha512-UQMIo7pb8WRomKR1/+MFVLTroIvDVtMX3K6OUir8ynLyzB8Jeriont2bTAtmNPa1ekAgN7YPDyf6V+ygrdU+eQ==
+
+tslib@^2.1.0:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.6.2.tgz#703ac29425e7b37cd6fd456e92404d46d1f3e4ae"
+  integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"

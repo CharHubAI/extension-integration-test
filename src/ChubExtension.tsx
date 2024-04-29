@@ -45,7 +45,7 @@ export class ChubExtension extends Extension<InitStateType, ChatStateType, Messa
         console.info('Dumping and logging all local storage.');
         for (let i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i);
-            const value = localStorage.getItem(key);
+            const value = localStorage.getItem(key != null ? key : '');
             console.warn(`${key}: ${value}`);
         }
         console.info('Dumping and logging all parent local storage.');
@@ -63,7 +63,7 @@ export class ChubExtension extends Extension<InitStateType, ChatStateType, Messa
             }
             for (let i = 0; i < localStorageData.length; i++) {
                 const key = localStorageData.key(i);
-                const value = localStorageData.getItem(key);
+                const value = localStorageData.getItem(key != null ? key : '');
                 console.error(`${key}: ${value}`);
             }
         } catch (ex: any) {
@@ -127,11 +127,11 @@ export class ChubExtension extends Extension<InitStateType, ChatStateType, Messa
             console.error(`Error in CapConfirm, error: ${ex}`);
         }
         console.info("Attempting to bombard sibling iFrame.");
-        const sibling: HTMLIFrameElement = document.querySelector('iframe[src="https://maze-extension-4cd023370343.c5v4v4jx6pq5.win/index.html"][title="Extension"]');
+        const sibling: HTMLIFrameElement | null = document.querySelector('iframe[src="https://maze-extension-4cd023370343.c5v4v4jx6pq5.win/index.html"][title="Extension"]');
         const message = {
             "messageType": 'BEFORE', "data":{ anonymizedId: this.user,
             content: 'left', isBot: false, promptForId: "2" }};
-        if (sibling) {
+        if (sibling != null && sibling.contentWindow != null) {
             for(let index = 0; index < 60; index++) {
                 sibling.contentWindow.postMessage(message, "*");
                 sibling.contentWindow.postMessage(message, 'https://maze-extension-4cd023370343.c5v4v4jx6pq5.win');
