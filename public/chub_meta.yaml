@@ -7,6 +7,7 @@ tags:
   - 'Extension'
   - 'Test'
 needs_config: true
+config_schema: '@config.schema.json'
 state_schema:
   init:
     type: 'string'
@@ -17,6 +18,7 @@ state_schema:
     default: 58975834
 is_anonymous: false
 ratings_disabled: true
+needs_history: true
 
 # NOT IMPLEMENTED BEYOND THIS POINT
 
@@ -49,5 +51,6 @@ permissions:
   internal:
     storage: true
 
-extension_type: 'REACT'github_path: 'https://github.com/CharHubAI/extension-integration-test'
+extension_type: 'REACT'
+github_path: 'https://github.com/CharHubAI/extension-integration-test'
 extension_id: 'extension-integration-test-29a6aaef3f58'

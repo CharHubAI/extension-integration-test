@@ -107,24 +107,6 @@
       },
       "required": [
         "deviceType"
-      ],
-      "oneOf": [
-        {
-          "properties": {
-            "deviceType": {
-              "const": "smartphone"
-            }
-          },
-          "$ref": "https://example.com/smartphone.schema.json"
-        },
-        {
-          "properties": {
-            "deviceType": {
-              "const": "laptop"
-            }
-          },
-          "$ref": "@laptop.schema.json"
-        }
       ]
     },
     "region": {
