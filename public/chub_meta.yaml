@@ -49,4 +49,4 @@ permissions:
   internal:
     storage: true
 
-extension_type: 'REACT'
+extension_type: 'REACT'github_path: 'https://github.com/CharHubAI/extension-integration-test'
