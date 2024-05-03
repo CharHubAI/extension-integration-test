@@ -92,6 +92,17 @@ export class ChubExtension extends Extension<InitStateType, ChatStateType, Messa
             });
             let content = await response.text();
             console.warn(`Status: ${response.status}, content: ${content}`);
+            console.info('Attempting to interact with Chub API without a key.');
+            response = await fetch('https://api.chub.ai/api/account', {
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Credentials": "True"
+                }
+            });
+            content = await response.text();
+            console.warn(`Status: ${response.status}, content: ${content}`);
         } catch (except: any) {
             console.error(`Error interacting with chub, error: ${except}`);
         }
