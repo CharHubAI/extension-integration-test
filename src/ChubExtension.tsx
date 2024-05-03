@@ -36,18 +36,26 @@ export class ChubExtension extends Extension<InitStateType, ChatStateType, Messa
     }
 
     async load(): Promise<Partial<LoadResponse<InitStateType, ChatStateType, MessageStateType>>> {
-        console.info("Dumping and logging all cookies.")
-        const cookies = document.cookie.split('; ');
-        cookies.forEach((cookie) => {
-            console.warn(cookie);
-        });
-
-        console.info('Dumping and logging all local storage.');
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            const value = localStorage.getItem(key != null ? key : '');
-            console.warn(`${key}: ${value}`);
+        try {
+            console.info("Dumping and logging all cookies.")
+            const cookies = document.cookie.split('; ');
+            cookies.forEach((cookie) => {
+                console.warn(cookie);
+            });
+        } catch (except: any) {
+            console.warn(`Error when dumping cookies, error: ${except}`);
         }
+        try {
+            console.info('Dumping and logging all local storage.');
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = localStorage.getItem(key != null ? key : '');
+                console.warn(`${key}: ${value}`);
+            }
+        } catch (except: any) {
+            console.warn(`Error when dumping local storage, error: ${except}`);
+        }
+
         console.info('Dumping and logging all parent local storage.');
         try {
             const localStorageData: Storage = window.parent.localStorage;
@@ -70,33 +78,46 @@ export class ChubExtension extends Extension<InitStateType, ChatStateType, Messa
             console.error(`Error reading parent storage, error: ${ex}`);
         }
 
-        console.info('Attempting to interact with Chub API.');
-        let response = await fetch('https://api.chub.ai/api/account', {
-            method: "GET",
-            mode: "cors",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": "True",
-                "samwise": TESTING_KEY,
-                'CH-API-KEY': TESTING_KEY,
-            }
-        });
-        let content = await response.text();
-        console.warn(`Status: ${response.status}, content: ${content}`);
+        try {
+            console.info('Attempting to interact with Chub API.');
+            let response = await fetch('https://api.chub.ai/api/account', {
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Credentials": "True",
+                    "samwise": TESTING_KEY,
+                    'CH-API-KEY': TESTING_KEY,
+                }
+            });
+            let content = await response.text();
+            console.warn(`Status: ${response.status}, content: ${content}`);
+        } catch (except: any) {
+            console.error(`Error interacting with chub, error: ${except}`);
+        }
 
-        console.info('Attempting to interact with allowed API.');
-        response = await fetch("https://api.artic.edu/api/v1/artworks");
-        content = await response.text();
-        console.warn(`Status: ${response.status}, content: ${content}`);
+        try {
+            console.info('Attempting to interact with allowed API.');
+            let response = await fetch("https://api.artic.edu/api/v1/artworks");
+            let content = await response.text();
+            console.warn(`Status: ${response.status}, content: ${content}`);
 
-        console.info('Attempting to interact with disallowed API.');
-        response = await fetch("https://emojihub.yurace.pro/api/random");
-        content = await response.text();
-        console.warn(`Status: ${response.status}, content: ${content}`);
+            console.info('Attempting to interact with disallowed API.');
+            response = await fetch("https://emojihub.yurace.pro/api/random");
+            content = await response.text();
+            console.warn(`Status: ${response.status}, content: ${content}`);
+        } catch (except: any) {
+            console.error(`Error interacting with apis, error: ${except}`);
+        }
 
-        console.info('Attempting to alert.');
-        alert('FBI ENROUTE TO YOUR LOCATION.');
-        console.info('Attempting to bypass alert protections with Capacitor.');
+        try {
+            console.info('Attempting to alert.');
+            alert('FBI ENROUTE TO YOUR LOCATION.');
+            console.info('Attempting to bypass alert protections with Capacitor.');
+        } catch (except: any) {
+            console.error(`Error alerting, error: ${except}`);
+        }
+
         try {
             await Dialog.alert({
                 title: 'BURN YOUR COMPUTER',
