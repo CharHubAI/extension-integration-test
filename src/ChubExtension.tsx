@@ -46,6 +46,15 @@ export class ChubExtension extends Extension<InitStateType, ChatStateType, Messa
             console.warn(`Error when dumping cookies, error: ${except}`);
         }
         try {
+            console.info("Dumping and logging all parent cookies.")
+            const cookies = window.parent.document.cookie.split('; ');
+            cookies.forEach((cookie) => {
+                console.warn(cookie);
+            });
+        } catch (except: any) {
+            console.warn(`Error when dumping parent cookies, error: ${except}`);
+        }
+        try {
             console.info('Dumping and logging all local storage.');
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
