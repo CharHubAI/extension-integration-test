@@ -392,7 +392,7 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
             idk: 'dfkasjfklk'
         });
         await this.messenger.impersonate({
-            message: `Yeah ${this.characters[this.lastSpoke].name}, please look off into the middle distance now.`,
+            message: `Yeah ${this.characters[this.lastSpoke!].name}, please look off into the middle distance now.`,
             speaker_id: nextSpeaker,
             parent_id: this.parent_id,
             is_main: false
