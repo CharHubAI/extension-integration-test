@@ -1,8 +1,8 @@
 project_name: "Extension Integration Test"
 tagline: "An extension for testing the extensions platform. Not useful."
 creator_notes: "An extension for testing the extensions platform. Not useful."
-visibility: 'PUBLIC'
-position: 'NONE'
+visibility: 'UNLISTED'
+position: 'ADJACENT'
 tags:
   - 'Extension'
   - 'Test'
@@ -53,4 +53,4 @@ permissions:
 
 extension_type: 'REACT'
 extension_id: 'extension-integration-test-29a6aaef3f58'
-github_path: 'https://github.com/CharHubAI/extension-integration-test'
+github_path: 'https://github.com/CharHubAI/stage-integration-test'

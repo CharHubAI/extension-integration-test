@@ -1,0 +1,7 @@
+project_name: 'Scenario Integration Test'
+tagline: 'ignore me.'
+visibility: 'UNLISTED'
+characters:
+  - @characters/chase.yaml
+  - @characters/taub.yaml
+  - @characters/greg.yaml

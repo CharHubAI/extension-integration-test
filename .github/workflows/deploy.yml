@@ -83,6 +83,7 @@ jobs:
       - name: Zip the build folder
         run: cd dist && zip -r ../build.zip * && cd ../
 
+
       - name: Upload the build
         env:
           CHUB_AUTH_TOKEN: ${{ secrets.CHUB_AUTH_TOKEN }}

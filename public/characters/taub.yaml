@@ -1,0 +1,33 @@
+tagline: 'testing taub'
+creator_notes: 'testing taub creator_notes'
+project_name: 'Taub (Tester)'
+is_anonymous: false
+visibility: 'UNLISTED'
+example_dialogs: ''
+first_message: '???'
+personality: 'Average'
+scenario: ''
+description: 'Late 40s, black hair, balding'
+ratings_disabled: True
+name: 'Taub'
+system_prompt: ''
+post_history_instructions: ''
+alternate_greetings:
+  - kdfjsdlkfja
+project_description: ''
+tags:
+  - Testing
+  - Test
+is_nsfw: true
+is_nsfl: true
+avatar: null
+background_image:
+extensions:
+  chub:
+    extensions:
+      - extension_id: 'extension-integration-test-29a6aaef3f58'
+        extension_path: 'stages/BartlebyTheScrivener/extension-integration-test-29a6aaef3f58'
+        config:
+          setting: 42342
+        is_enabled: true
+        is_editing: false

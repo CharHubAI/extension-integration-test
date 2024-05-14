@@ -1,0 +1,58 @@
+tagline: 'testing chase'
+creator_notes: 'testing chase creator_notes'
+project_name: 'Chase (Tester)'
+is_anonymous: false
+visibility: 'UNLISTED'
+example_dialogs: ''
+first_message: '...'
+personality: 'Australian'
+scenario: 'something something lupus'
+description: 'Blonde, early 30s male'
+ratings_disabled: True
+name: 'Chase'
+system_prompt: ''
+post_history_instructions: ''
+alternate_greetings:
+  - 'kdfjsdlkfja'
+project_description: ''
+tags:
+  - Testing
+  - Test
+is_nsfw: true
+is_nsfl: true
+avatar: @characters/color_logo_300.png
+background_image: @36d41bb9-c17a-4394-b7b1-49946513c386.png
+extensions:
+  chub:
+    extensions:
+      - extension_id: 'extension-integration-test-29a6aaef3f58'
+        extension_path: 'stages/BartlebyTheScrivener/extension-integration-test-29a6aaef3f58'
+        config:
+          basicstring: 'old fish'
+          subobject:
+            number: 13
+            integer: 13
+            boolean: false
+            multipleOf: 9
+            slider: 1.3
+            maximums: 16
+          array:
+            - date_string: '2023-08-25T15:00:00Z'
+              dateOfBirth: '01/01/2023'
+              timeOfBirth: '15:00:00Z'
+              durationOfBirth: "That's a rather personal question, isn't it?"
+              email: 'ffffff@fffff.fffffffffffffffffffffffffffff'
+              manualEmail: 'asdk.dfklsjfak'
+          enum: 'maybe'
+          locality:
+            deviceType: 'what'
+          region: 'faance'
+          postalCode: '132433'
+          countryName: 'faance'
+          characterMap:
+            class: 'warrior'
+            health: 26
+            fullname: 'Dr. Chase'
+            level: 7
+        is_enabled: true
+        is_editing: false
