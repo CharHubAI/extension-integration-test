@@ -221,10 +221,10 @@
   resolved "https://registry.yarnpkg.com/@capacitor/dialog/-/dialog-5.0.7.tgz#c14bb08d1d50cec1b132a96e74dfd8c3ac3a1dee"
   integrity sha512-lWNBHXOtt7V+Jk4YiShvnb+/4Ouo+yF1NKTOFpQXfVbsjrmmlXhd3ZSXSgMukEtyr0wr0phFUKDyamY08cYBOg==
 
-"@chub-ai/stages-ts@0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@chub-ai/stages-ts/-/stages-ts-0.3.2.tgz#75397b8e99a28de22b9cda065085fd1fe18cb173"
-  integrity sha512-ychTmeQ/veULdZwhC5R/DXGerZkCeD6P4yBKjifVQs8KkVUWnb1L8rrw+ufWIdZ46sxqc0/4sRQLU/UDs9aM7A==
+"@chub-ai/stages-ts@0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@chub-ai/stages-ts/-/stages-ts-0.3.4.tgz#6f2e9dbca7990976cf524629ea1d04590618c7a4"
+  integrity sha512-YLTTLBEo8hdFSB9C5rXkIwlNIMn3ZRyUrmIONW4pBqUaIyPnUbhOKUQz8JapvZvQfdp7z5qBqQNgn4+81LH5hQ==
   dependencies:
     "@ffmpeg/ffmpeg" "^0.12.10"
     "@types/node" "20.10.0"

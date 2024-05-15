@@ -14,7 +14,7 @@
     "@capacitor/core": "5.7.4",
     "@capacitor/dialog": "5.0.7",
     "@typescript-eslint/parser": "^7.4.0",
-    "@chub-ai/stages-ts": "0.3.2",
+    "@chub-ai/stages-ts": "0.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
