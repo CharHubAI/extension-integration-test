@@ -57,7 +57,7 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
             chatState
         } = data;
         this.characters = characters;
-        this.parent_id = null;
+        this.parent_id = "-2";
         this.music = [];
         this.images = [];
         this.videos = [];
