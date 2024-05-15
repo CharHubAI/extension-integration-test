@@ -73,7 +73,6 @@ jobs:
              EXTENSION_ID=${{ secrets.EXTENSION_ID }}
           fi
           echo "EXTENSION_ID=${EXTENSION_ID}" >> $GITHUB_ENV
-
       - name: Char UUIDGen
         if: !contains(github.repository, 'template')
         run: |
