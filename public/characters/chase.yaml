@@ -20,8 +20,8 @@ tags:
   - Test
 is_nsfw: true
 is_nsfl: true
-avatar: @characters/color_logo_300.png
-background_image: @36d41bb9-c17a-4394-b7b1-49946513c386.png
+avatar: '@characters/color_logo_300.png'
+background_image: '@36d41bb9-c17a-4394-b7b1-49946513c386.png'
 extensions:
   chub:
     extensions:
