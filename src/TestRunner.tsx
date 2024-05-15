@@ -1,4 +1,4 @@
-import {ChubExtension} from "./ChubExtension.tsx";
+import {ChubExtension} from "./ChubExtension";
 import {useEffect, useState} from "react";
 import {DEFAULT_INITIAL, DEFAULT_MESSAGE, StageBase, StageResponse, InitialData} from "@chub-ai/stages-ts";
 

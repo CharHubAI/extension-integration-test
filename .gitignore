@@ -27,3 +27,4 @@ dist-ssr
 dist/
 creation.json
 *.trash
+*.tgz

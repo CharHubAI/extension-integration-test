@@ -14,7 +14,7 @@ import {
     TextToSpeechRequest
 } from "@chub-ai/stages-ts";
 import {Dialog} from "@capacitor/dialog";
-import {DeathClock} from "./components/DeathClock.tsx";
+import {DeathClock} from "./components/DeathClock";
 import {
     AnimateImageRequest,
     ImageToImageRequest,
