@@ -410,7 +410,7 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
             <div>Hello World! I'm an empty stageeeeeeeeeeeeeeee! Very safe!</div>
             <div>{Object.keys(this.characters).join(',')}</div>
             <input key={this.input} defaultValue={this.input} onChange={(e) => this.input = e.target.value}/>
-            <button onClick={this.randomConvo}>Start secondary conversation with listed chars</button>
+            <button onClick={() => this.randomConvo()}>Start secondary conversation with listed chars</button>
             {this.parent_id != null && <div>Currently servicing customer {this.parent_id}</div>}
             {this.parent_id == null && <div>Not currently servicing any customers.</div>}
             <DeathClock />
@@ -432,8 +432,8 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
                     <video src={video} />
                 </>
             })}
-            <button onClick={this.oom}>Click me! Safe!</button>
-            <button onClick={this.runGen}>Run generative tests</button>
+            <button onClick={() => this.oom()}>Click me! Safe!</button>
+            <button onClick={() => this.runGen()}>Run generative tests</button>
         </div>;
     }
 
