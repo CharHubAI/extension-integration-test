@@ -72,7 +72,7 @@ jobs:
           else
              EXTENSION_ID=${{ secrets.EXTENSION_ID }}
           fi
-          echo "EXTENSION_ID=${EXTENSION_ID}" >> $GITHUB_OUTPUT
+
       - name: Char UUIDGen
         if: !contains(github.repository, 'template')
         run: |
@@ -103,5 +103,5 @@ jobs:
         env:
           CHUB_AUTH_TOKEN: ${{ secrets.CHUB_AUTH_TOKEN }}
         run: |    
-          curl -H "CH-API-KEY: ${{ secrets.CHUB_AUTH_TOKEN }}" -F "file=@build.zip" https://api.chub.ai/extension/${{ steps.get_or_make_extension_id.outputs.EXTENSION_ID }}/upload
+          curl -H "CH-API-KEY: ${{ secrets.CHUB_AUTH_TOKEN }}" -F "file=@build.zip" https://api.chub.ai/extension/${{ env.EXTENSION_ID }}/upload
 
