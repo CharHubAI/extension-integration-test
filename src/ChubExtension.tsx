@@ -288,7 +288,7 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
         }
     }
 
-    async runGen() {
+    async runMusic() {
         const gennedText = await this.generator.textGen({
             prompt: 'Write the sort of song lyrics someone might think of between the bridge and the river.',
             stop: [],
@@ -313,6 +313,9 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
         if(words != null) {
             this.music.push(words.url);
         }
+    }
+
+    async runGen() {
         const imgReq: ImageRequest = {
             aspect_ratio: AspectRatio.WIDESCREEN_HORIZONTAL,
             negative_prompt: 'distorted, blurred, ugly',
@@ -434,6 +437,7 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
             })}
             <button onClick={() => this.oom()}>Click me! Safe!</button>
             <button onClick={() => this.runGen()}>Run generative tests</button>
+            <button onClick={() => this.runMusic()}>Run other generative tests</button>
         </div>;
     }
 
