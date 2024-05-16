@@ -318,7 +318,7 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
             negative_prompt: 'distorted, blurred, ugly',
             prompt: "a pixel art sprite of an allied character symbolizing reasons to live, (c) Nintendo 1997",
             remove_background: true,
-            seed: null
+            seed: null, item_id: null
         };
         const image = await this.generator.makeImage(imgReq);
         this.images.push(image!.url);
@@ -329,7 +329,7 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
             prompt: "bees",
             remove_background: true,
             seed: null,
-            strength: 0.7
+            strength: 0.7, item_id: null
         };
         const img2img = await this.generator.imageToImage(img2Req);
         this.images.push(img2img!.url);
@@ -342,12 +342,12 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
             remove_background: false,
             search_prompt: 'Not actually implemented yet',
             seed: null,
-            strength: 0.5
+            strength: 0.5, item_id: null
         };
         const inpainted = await this.generator.inpaintImage(inpaintReq);
         this.images.push(inpainted!.url);
         const foleyReq: FoleyRequest = {
-            prompt: "Spaceship battle with kittens", seconds: 6, seed: null
+            prompt: "Spaceship battle with kittens", seconds: 6, seed: null, item_id: null
         };
         const foley = await this.generator.makeSound(foleyReq);
         this.music.push(foley!.url);
@@ -357,7 +357,7 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
         const noback = await this.generator.removeBackground(backReq);
         this.images.push(noback!.url);
         const animateReq: AnimateImageRequest = {
-            cfg_scale: 5, image: noback!.url, motion_bucket_id: 250, seed: null
+            cfg_scale: 5, image: noback!.url, motion_bucket_id: 250, seed: null, item_id: null
         };
         const animated = await this.generator.animateImage(animateReq);
         this.videos.push(animated!.url);
