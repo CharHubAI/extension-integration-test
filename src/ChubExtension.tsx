@@ -21,6 +21,7 @@ import {
     RemoveBackgroundRequest
 } from "@chub-ai/stages-ts/dist/types/generation/images";
 import {TextToVideoRequest} from "@chub-ai/stages-ts/dist/types/generation/videos";
+import AudioPlayer from "./components/AudioPlayer";
 
 type MessageStateType = any;
 
@@ -419,13 +420,12 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
             <DeathClock />
             {this.music.map(track => {
                 return <>
-                    <div>Sounds to Give Up to</div>
-                    <audio src={track}/>
+                    <div>{track}</div>
+                    <AudioPlayer url={track} />
                 </>
             })}
             {this.images.map(imagery => {
                 return <>
-                    <div>Now Playing</div>
                     <img src={imagery}  alt={imagery}/>
                 </>
             })}
