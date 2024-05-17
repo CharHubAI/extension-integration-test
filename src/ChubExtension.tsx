@@ -378,18 +378,20 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
         const participants = this.input.split(',');
         let nextSpeaker = participants.filter(parti => parti != this.lastSpoke)[0];
         let iter = 10;
+        let parent = this.parent_id;
         while(iter > 0) {
             const messageResponse = await this.messenger.nudge({
                 stage_directions: `Tell me about the rabbits, ${this.characters[nextSpeaker].name}.`,
                 participants: participants,
                 speaker_id: nextSpeaker,
-                parent_id: this.parent_id,
+                parent_id: parent,
                 is_main: false
             });
             iter -= 1;
             this.lastSpoke = nextSpeaker;
             nextSpeaker = participants.filter(parti => parti != this.lastSpoke)[0];
             this.parent_id = messageResponse.identity;
+            parent = messageResponse.identity;
         }
         await this.messenger.updateEnvironment({background: CHUBBY_KITTY});
         await this.messenger.updateChatState({
