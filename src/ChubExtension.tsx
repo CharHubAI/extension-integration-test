@@ -404,6 +404,13 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
             is_main: false
         });
         this.parent_id = null;
+        const gennedText = await this.generator.textGen({
+            prompt: 'Write a song about everything that\'s happened so far.',
+            stop: [],
+            max_tokens: 200,
+            include_history: true
+        });
+        console.warn(gennedText?.result);
     }
 
     render(): ReactElement {
