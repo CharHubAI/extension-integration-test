@@ -439,7 +439,7 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
             <input key={this.input} defaultValue={this.input} onChange={(e) => this.input = e.target.value}/>
             <button onClick={() => this.randomConvo()}>Start secondary conversation with listed chars</button>
             <button onClick={() => this.llm()}>Make history request</button>
-            <div>{this.gennedText}</div>
+            <div>{`${this.gennedText.toString()}`}</div>
             {this.parent_id != null && <div>Currently servicing customer {this.parent_id}</div>}
             {this.parent_id == null && <div>Not currently servicing any customers.</div>}
             <DeathClock />
