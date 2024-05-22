@@ -40,6 +40,7 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
     input: string
     lastSpoke: string | null
     parent_id: string | null
+    gennedText: any
     characters: {[key: string]: Character}
     music: string[]
     images: string[]
@@ -62,6 +63,7 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
         this.music = [];
         this.images = [];
         this.videos = [];
+        this.gennedText = {};
         console.warn(characters);
         this.lastSpoke = Object.keys(characters)[0];
         this.user = Object.keys(users)[0];
@@ -413,6 +415,18 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
         console.warn(gennedText?.result);
     }
 
+    async llm() {
+        const gennedText = await this.generator.textGen({
+            prompt: 'Write a song about everything that\'s happened so far.',
+            stop: [],
+            max_tokens: 200,
+            include_history: true
+        });
+        console.warn(gennedText);
+        this.gennedText = gennedText;
+        console.warn(gennedText?.result);
+    }
+
     render(): ReactElement {
         return <div style={{
             width: '100vw',
@@ -424,6 +438,8 @@ export class ChubExtension extends StageBase<InitStateType, ChatStateType, Messa
             <div>{Object.keys(this.characters).join(',')}</div>
             <input key={this.input} defaultValue={this.input} onChange={(e) => this.input = e.target.value}/>
             <button onClick={() => this.randomConvo()}>Start secondary conversation with listed chars</button>
+            <button onClick={() => this.llm()}>Make history request</button>
+            <div>{this.gennedText}</div>
             {this.parent_id != null && <div>Currently servicing customer {this.parent_id}</div>}
             {this.parent_id == null && <div>Not currently servicing any customers.</div>}
             <DeathClock />
